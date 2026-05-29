@@ -1,0 +1,32 @@
+﻿services:
+  - type: web
+    name: smart-backend
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    env: node
+    envVars:
+      - key: MONGO_URI
+        value: ${MONGO_URI}
+      - key: EMAIL_USER
+        value: ${EMAIL_USER}
+      - key: EMAIL_PASS
+        value: ${EMAIL_PASS}
+      - key: MAPS_API_KEY
+        value: ${MAPS_API_KEY}
+      - key: JWT_SECRET
+        value: ${JWT_SECRET}
+      - key: UPLOAD_DIR
+        value: uploads
+      - key: NODE_ENV
+        value: production
+
+  - type: web
+    name: smart-frontend
+    buildCommand: cd frontend && npm install && npm run build
+    startCommand: npx serve -s frontend/dist -l 3000
+    env: node
+    envVars:
+      - key: VITE_GOOGLE_MAPS_API_KEY
+        value: ${VITE_GOOGLE_MAPS_API_KEY}
+      - key: VITE_BACKEND_URL
+        value: ${VITE_BACKEND_URL}
